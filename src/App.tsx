@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// components
+import Header from './components/Header/Header';
+import Book from './components/Book/Book';
+import NotFound from './components/NotFound/NotFound';
+// css
+import style from './App.module.scss';
+//interface
+import { BOOK } from './interface/interface';
 
-function App() {
+export const BookContext = createContext(
+  {} as {
+    book: BOOK | undefined,
+    setBook: React.Dispatch<React.SetStateAction<BOOK | undefined>>,
+  }
+);
+
+const App: React.FC = () => {
+  const [book, setBook] = useState<BOOK | undefined>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <BookContext.Provider 
+        value={{
+          book,
+          setBook
+        }}
+      >
+        <Header />
+        <Switch>
+          <Route exact path='/:isbn/book' component={Book} />
+          <Route exact path='/:isbn/notfound' component={NotFound} />
+        </Switch>
+        {/* <Book />
+        <NotFound /> */}
+      </BookContext.Provider>
+    </Router>
   );
 }
 
