@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Book from './components/Book/Book';
 import NotFound from './components/NotFound/NotFound';
-// css
-import style from './App.module.scss';
 //interface
 import { BOOK } from './interface/interface';
 
@@ -28,12 +26,11 @@ const App: React.FC = () => {
         }}
       >
         <Header />
+        <Book />
         <Switch>
           <Route exact path='/:isbn/book' component={Book} />
           <Route exact path='/:isbn/notfound' component={NotFound} />
         </Switch>
-        {/* <Book />
-        <NotFound /> */}
       </BookContext.Provider>
     </Router>
   );

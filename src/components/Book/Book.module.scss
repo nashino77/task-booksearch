@@ -1,0 +1,74 @@
+.book {
+  width: 955px;
+  height: 348px;
+  display: flex;
+  margin: 105px auto;
+
+  .bookThumbnail {
+    width: 228px;
+    height: 318px;
+    margin-top: 8px;
+    margin-left: 60px;
+  }
+
+  .bookInfo {
+    margin-left: 52px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .subTitle {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .authors {
+      font-size: 18px;
+      font-weight: 400;
+      padding: 0;
+      
+      & > a {
+        text-decoration: none;
+
+        &::after {
+          content: ',';
+          color: black;
+        }
+
+        &:last-child::after {
+          content: '(著)';
+          color: black;
+        }
+      }
+    }
+
+    .rate {
+
+    }
+
+    .publisher {
+
+    }
+    .description {
+
+    }
+    .publishedDate {
+      list-style: none;
+      display: flex;
+      padding: 0;
+
+      & > li:first-child::after {
+        content: '月';
+      }
+      & > li:last-child::after{
+        content: '日';
+      }
+    }
+    .pageCount {
+
+    }
+  }
+}
