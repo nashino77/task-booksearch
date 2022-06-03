@@ -1,37 +1,34 @@
-.bookAnime {
-  animation: bookDisplay 3s ease 0s 1;
-}
+// .bookAnime {
+//   animation: bookDisplay 3s ease 0s 1;
 
-@keyframes bookDisplay {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+//   @keyframes bookDisplay {
+//     from {
+//       opacity: 0;
+//     }
+//     to {
+//       opacity: 1;
+//     }
+//   }
+// }
 
 .book {
   width: 955px;
   height: 348px;
   display: flex;
   margin: 105px auto;
-  // animation: bookDisplay 3s ease 0s 1;
-
-  // @keyframes bookDisplay {
-  //   from {
-  //     opacity: 0;
-  //   }
-  //   to {
-  //     opacity: 1;
-  //   }
-  // }
 
   .bookThumbnail {
     width: 228px;
     height: 318px;
     margin-top: 8px;
     margin-left: 60px;
+  }
+
+  .noThumbnail {
+    border: solid 1px rgb(219, 219, 219);
+    font-size: 20px;
+    text-align: center;
+    line-height: 318px;
   }
 
   .bookInfo {

@@ -21,7 +21,7 @@ const Header: React.FC = () => {
       console.log(res);
       setBook(res.data.items[0]);
       history.push(`/${isbn}/book`);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.log(err);
       history.push(`/${isbn}/notfound`)
     }

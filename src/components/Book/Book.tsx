@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { BookContext } from "../../App";
 // api
 import { searchBook } from "../../api/book";
@@ -14,9 +14,9 @@ const Book: React.FC = () => {
   const bookInfo = {
     title: book?.volumeInfo.title,
     subTitle: book?.volumeInfo.subtitle,
-    image: book?.volumeInfo.imageLinks.thumbnail,
+    image: book?.volumeInfo.imageLinks === undefined ? "" : book?.volumeInfo.imageLinks.thumbnail ,
     authors: book?.volumeInfo.authors,
-    averageRating: book?.volumeInfo.averageRating,
+    averageRating: book?.volumeInfo.averageRating === undefined ? 0 : book?.volumeInfo.averageRating,
     publisher: book?.volumeInfo.publisher,
     description: book?.volumeInfo.description,
     publishedDate: book?.volumeInfo.publishedDate.split('-'),
@@ -28,7 +28,7 @@ const Book: React.FC = () => {
       const res = await searchBook(Number(urlParams.isbn));
       console.log(res);
       setBook(res.data.items[0]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.log(err);
     }
   };
@@ -38,12 +38,17 @@ const Book: React.FC = () => {
   }, [setBook])
 
   return (
+    
     <div className={`${style.book} ${style.bookAnime}`}>
-      <img 
-        src={bookInfo.image} 
-        alt='book thumbnail' 
-        className={style.bookThumbnail}
-      />
+      { book?.volumeInfo.imageLinks === undefined ? (
+        <div className={`${style.bookThumbnail} ${style.noThumbnail}`}>画像がありません</div>
+      ): (
+        <img 
+          src={bookInfo.image} 
+          alt='book thumbnail' 
+          className={style.bookThumbnail}
+        />
+      )}
       <div className={style.bookInfo}>
         <h2 className={style.title}>{bookInfo.title}</h2>
         <h3 className={style.subTitle}>{bookInfo.subTitle}</h3>
