@@ -1,4 +1,5 @@
 import React from 'react'
+// css
 import style from './Star.module.scss';
 
 const Star: React.FC<{ averageRating: number | undefined }> = (props) => {

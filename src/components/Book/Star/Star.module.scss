@@ -1,13 +1,13 @@
-$star-width: 23px;
+$star-width: 36px;
 
 .starRate {
   position: relative;
   font-size: $star-width;
   &::before, &::after {
     content: "★★★★★";
-    letter-spacing: 3px;
+    // letter-spacing: 8px;
     color: #ffffff;
-    -webkit-text-stroke: 1px #F5B76E;
+    -webkit-text-stroke: 2px #F5B76E;
     position: absolute;
     top: 0;
     left: 0;
@@ -20,6 +20,6 @@ $star-width: 23px;
 
 @for $i from 0 through 10 {
   .starRate[data-rate="#{$i * 0.5}"]::after {
-    width: $i * 0.56 * $star-width;
+    width: $i * 0.58 * $star-width;
   }
 }

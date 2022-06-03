@@ -39,7 +39,7 @@ const Book: React.FC = () => {
 
   return (
     
-    <div className={`${style.book} ${style.bookAnime}`}>
+    <div className={style.book}>
       { book?.volumeInfo.imageLinks === undefined ? (
         <div className={`${style.bookThumbnail} ${style.noThumbnail}`}>画像がありません</div>
       ): (
