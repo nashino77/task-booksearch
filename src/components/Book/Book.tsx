@@ -1,53 +1,77 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import { BookContext } from "../../App";
+// api
+import { searchBook } from "../../api/book";
 // css
 import style from './Book.module.scss';
+// components
+import Star from "./Star/Star";
 
 const Book: React.FC = () => {
   const { book, setBook } = useContext(BookContext);
-  const title = book?.volumeInfo.title;
-  const subTitle = book?.volumeInfo.subtitle;
-  const authors = book?.volumeInfo.authors;
-  const ratingsCount = book?.volumeInfo.ratingsCount;
-  const averageRating = book?.volumeInfo.averageRating;
-  const publisher = book?.volumeInfo.publisher;
-  const description = book?.volumeInfo.description;
-  const publishedDate = book?.volumeInfo.publishedDate.split('-');
-  const pageCount = book?.volumeInfo.pageCount;
+  const urlParams = useParams<{ isbn: string }>();
+  const bookInfo = {
+    title: book?.volumeInfo.title,
+    subTitle: book?.volumeInfo.subtitle,
+    image: book?.volumeInfo.imageLinks.thumbnail,
+    authors: book?.volumeInfo.authors,
+    averageRating: book?.volumeInfo.averageRating,
+    publisher: book?.volumeInfo.publisher,
+    description: book?.volumeInfo.description,
+    publishedDate: book?.volumeInfo.publishedDate.split('-'),
+    pageCount: book?.volumeInfo.pageCount,
+  };
+  // ブラウザ更新時の書籍情報維持
+  const maintainSearchBook = async () => {
+    try {
+      const res = await searchBook(Number(urlParams.isbn));
+      console.log(res);
+      setBook(res.data.items[0]);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    maintainSearchBook();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setBook])
 
   return (
-    <div className={style.book}>
+    <div className={`${style.book} ${style.bookAnime}`}>
       <img 
-        src={`${book?.volumeInfo.imageLinks.thumbnail}`} 
+        src={bookInfo.image} 
         alt='book thumbnail' 
         className={style.bookThumbnail}
       />
       <div className={style.bookInfo}>
-        <h2 className={style.title}>{title}</h2>
-        <h3 className={style.subTitle}>{subTitle}</h3>
-        <ul className={style.authors}>
-          {authors?.map((author) => {
+        <h2 className={style.title}>{bookInfo.title}</h2>
+        <h3 className={style.subTitle}>{bookInfo.subTitle}</h3>
+        <div className={style.authors}>
+          {bookInfo.authors?.map((author) => {
             return (
-              <Link to={`/`}>
+              <Link key={author} to={`/`}>
                 {author}
               </Link>
             )
           })}
-        </ul>
-        <div className={style.rate}>
-          {ratingsCount} {averageRating}
         </div>
-        <p className={style.publisher}>{publisher}</p>
-        <p className={style.description}>{description}</p>
+        <div className={style.rate}>
+          <Star averageRating={bookInfo.averageRating} />
+        </div>
+        <p className={style.publisher}>{bookInfo.publisher}</p>
+        <hr />
+        <p className={style.description}>
+          {bookInfo.description}
+        </p>
         <ul className={style.publishedDate}>
-          {publishedDate?.map((date) => {
+          {bookInfo.publishedDate?.map((date) => {
             return (
                 <li key={date}>{Number(date)}</li>
             )
           })}
         </ul>
-        <p className={style.pageCount}>{pageCount}</p>
+        <p className={style.pageCount}>{bookInfo.pageCount}ページ</p>
       </div>
     </div>
   )

@@ -20,11 +20,12 @@ const Header: React.FC = () => {
       const res = await searchBook(Number(isbn));
       console.log(res);
       setBook(res.data.items[0]);
-      // history.push(`/${isbn}/book`);
+      history.push(`/${isbn}/book`);
     } catch (err: any) {
       console.log(err);
       history.push(`/${isbn}/notfound`)
     }
+    setIsbn("");
   };
 
   return (

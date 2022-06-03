@@ -1,8 +1,31 @@
+.bookAnime {
+  animation: bookDisplay 3s ease 0s 1;
+}
+
+@keyframes bookDisplay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .book {
   width: 955px;
   height: 348px;
   display: flex;
   margin: 105px auto;
+  // animation: bookDisplay 3s ease 0s 1;
+
+  // @keyframes bookDisplay {
+  //   from {
+  //     opacity: 0;
+  //   }
+  //   to {
+  //     opacity: 1;
+  //   }
+  // }
 
   .bookThumbnail {
     width: 228px;
@@ -18,23 +41,49 @@
       font-size: 28px;
       font-weight: 700;
       margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .subTitle,
+    .authors,
+    .publisher,
+    .description,
+    .publishedDate,
+    .pageCount {
+      font-weight: 400;
+    }
+
+    .authors, .publisher, .description{
+      font-size: 18px;
+    }
+
+    .publishedDate, .pageCount{
+      font-size: 16px;
+    }
+
+    .description, .publishedDate{
+      margin-bottom: 0;
     }
 
     .subTitle {
       font-size: 20px;
-      font-weight: 400;
+      margin-top: 8px;
     }
 
     .authors {
-      font-size: 18px;
-      font-weight: 400;
       padding: 0;
-      
+      margin-top: 24px;
+
       & > a {
         text-decoration: none;
+        margin-left: 4px;
+        &:first-child {
+          margin-left: 0;
+        }
 
         &::after {
           content: ',';
+          padding-left: 4px;
           color: black;
         }
 
@@ -46,29 +95,44 @@
     }
 
     .rate {
-
+      width: 126px;
+      height: 19px;
+      margin-top: 16px;
     }
 
     .publisher {
-
+      font-weight: 400;
     }
+
+    hr {
+      width: 558px;
+      margin-top: 29px;
+    }
+
     .description {
-
+      width: 558px;
+      line-height: 21px;
+      margin-top: 20px;
     }
+
     .publishedDate {
+      font-size: 16px;
       list-style: none;
       display: flex;
       padding: 0;
+      margin-top: 10px;
 
       & > li:first-child::after {
-        content: '月';
+        content: '年';
       }
       & > li:last-child::after{
-        content: '日';
+        content: '月発売';
       }
     }
-    .pageCount {
 
+    .pageCount {
+      font-size: 16px;
+      margin-top: 8px;
     }
   }
 }

@@ -8,4 +8,9 @@ describe("Test Header Component", () => {
     console.log(buttonList);
     expect(buttonList).toHaveLength(1);
   });
+
+  test("タイトルが表示されているか", () => {
+    render(<Header />);
+    
+  })
 })

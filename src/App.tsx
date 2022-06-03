@@ -22,11 +22,10 @@ const App: React.FC = () => {
       <BookContext.Provider 
         value={{
           book,
-          setBook
+          setBook,
         }}
       >
         <Header />
-        <Book />
         <Switch>
           <Route exact path='/:isbn/book' component={Book} />
           <Route exact path='/:isbn/notfound' component={NotFound} />

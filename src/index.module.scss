@@ -4,8 +4,11 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  input::placeholder {
-    font-family: 'Roboto', sans-serif;
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #4C8DCA;
   }
 }
 
