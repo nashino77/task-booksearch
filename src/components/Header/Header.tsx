@@ -41,7 +41,6 @@ const Header: React.FC = () => {
 
   return (
     <div className={style.header}>
-      {isbn}
       <img 
         src={mainTitle} 
         alt='メインタイトル' 

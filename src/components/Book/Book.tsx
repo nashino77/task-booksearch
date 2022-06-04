@@ -8,10 +8,22 @@ import style from './Book.module.scss';
 // components
 import Star from "./Star/Star";
 
+interface BOOKINFO {
+  title: string | undefined;
+  subTitle: string | undefined;
+  image: string;
+  authors: string[] | undefined;
+  averageRating: number;
+  publisher: string | undefined;
+  description: string | undefined;
+  publishedDate: string[] | undefined;
+  pageCount: number | undefined;
+};
+
 const Book: React.FC = () => {
   const { book, setBook } = useContext(BookContext);
   const urlParams = useParams<{ isbn: string }>();
-  const bookInfo = {
+  const bookInfo: BOOKINFO = {
     title: book?.volumeInfo.title,
     subTitle: book?.volumeInfo.subtitle,
     image: book?.volumeInfo.imageLinks === undefined ? "" : book?.volumeInfo.imageLinks.thumbnail ,
