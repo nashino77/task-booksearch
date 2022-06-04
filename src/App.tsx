@@ -16,7 +16,6 @@ export const BookContext = createContext(
 
 const App: React.FC = () => {
   const [book, setBook] = useState<BOOK | undefined>();
-
   return (
     <Router>
       <BookContext.Provider 

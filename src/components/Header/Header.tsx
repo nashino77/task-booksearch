@@ -13,23 +13,35 @@ const Header: React.FC = () => {
   const { setBook } = useContext(BookContext);
   const history = useHistory();
   const [isbn, setIsbn] = useState<string>("");
+  // isbn数値のバリデーション用変数
+  const validate = ![0, 10, 13].includes(isbn.length) || (/[^0-9０-９]+/).test(isbn);
+  const errorMessage = validate ? "10または13文字の数字を入力してください" : "" ;
+  // 全角半角変換
+  const toHalfWidth = (str: string) => {
+    const halfStr = str.replace(/[０-９]/g, (s) => {
+      return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+    });
+    return halfStr;
+  };
   // ISBNコードによる書籍情報取得
   const handleSearchBook = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (validate || [0].includes(isbn.length)) return;
+    const params = (/[０-９]+/).test(isbn) ? toHalfWidth(isbn) : isbn ;
     try {
-      const res = await searchBook(Number(isbn));
-      console.log(res);
+      const res = await searchBook(Number(params));
       setBook(res.data.items[0]);
-      history.push(`/${isbn}/book`);
+      history.push(`/${params}/book`);
     } catch (err: unknown) {
       console.log(err);
-      history.push(`/${isbn}/notfound`)
+      history.push(`/${params}/notfound`)
     }
     setIsbn("");
   };
 
   return (
     <div className={style.header}>
+      {isbn}
       <img 
         src={mainTitle} 
         alt='メインタイトル' 
@@ -49,14 +61,12 @@ const Header: React.FC = () => {
         />
         <button 
           onClick={handleSearchBook} 
-          disabled={ ![10, 13].includes(isbn.length) }
+          disabled={validate}
           className={style.searchButton}
         >
           <img src={searchMark} alt='検索フォームボタン' />
         </button>
-        { ![0, 10, 13].includes(isbn.length) &&
-          <span className={style.errorMessage}>10または13文字の数字を入力してください</span>
-        }
+        <span className={style.errorMessage}>{errorMessage}</span>
       </form>
     </div>
   )
