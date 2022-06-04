@@ -20,17 +20,17 @@ const Star: React.FC<{ averageRating: number | undefined }> = (props) => {
       <ul className={style.starRate}>
         {[...Array(starCount)].map((n, i) => (
           <li key={i} className={style.star}>
-            <img src={starMark} alt='評価表示'  className={style.star}/>
+            <img src={starMark} alt='評価用色つき星'  className={style.star}/>
           </li>
         ))}
         {!halfCount && 
           <li className={style.star}>
-            <img src={halfStarMark} alt='評価表示'  className={style.star}/>
+            <img src={halfStarMark} alt='評価用色半分星'  className={style.star}/>
           </li>
         }
         {[...Array(noStarCount)].map((n, i) => (
           <li key={i} className={style.star}>
-            <img src={noStarMark} alt='評価表示'  className={style.star}/>
+            <img src={noStarMark} alt='評価用色なし星'  className={style.star}/>
           </li>
         ))}
       </ul>

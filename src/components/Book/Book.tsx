@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BookContext } from "../../App";
 // api
 import { searchBook } from "../../api/book";

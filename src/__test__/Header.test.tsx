@@ -1,23 +1,8 @@
-import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Header from "../components/Header/Header";
-import { BookContext } from "../App";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
 
-const server = setupServer(
-  rest.get("https://www.googleapis.com/books/v1/volumes?q=isbn:9784873115658", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ totalItems: 1 }));
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  cleanup();
-});
-afterAll(() => server.close());
+afterEach(() => cleanup());
 
 describe("レンダリング", () => {
   it("レンダリングは正常か", async () => {
@@ -77,4 +62,5 @@ describe("検索ボタン", () => {
       expect(screen.getByRole("button")).toHaveAttribute("disabled");
     });
   });
+
 });
