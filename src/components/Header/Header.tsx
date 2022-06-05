@@ -23,7 +23,6 @@ const Header: React.FC = () => {
     const params: string = (/[０-９]+/).test(isbn) ? toHalfWidth(isbn) : isbn ;
     try {
       const res = await searchBook(Number(params));
-      console.log(res);
       setBook(res.data.items[0]);
       history.push(`/${params}/book`);
     } catch (err: unknown) {
