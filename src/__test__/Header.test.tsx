@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import Header from "../components/Header/Header";
 
 afterEach(() => cleanup());
-
 describe("レンダリング", () => {
   it("レンダリングは正常か", async () => {
     render(<Header />);
@@ -13,7 +12,6 @@ describe("レンダリング", () => {
     expect(screen.getByRole("button")).toBeTruthy();
   });
 });
-
 describe("入力フォーム", () => {
   it("フォーム入力は正常か", async () => {
     render(<Header />);
@@ -22,7 +20,6 @@ describe("入力フォーム", () => {
     expect(inputValue.value).toBe("1234567891");
   });
 });
-
 describe("検索ボタン", () => {
   describe("10文字 13文字以外の数字以外はonClickは反応しない", () => {
     it("10文字以下", async () => {
@@ -62,5 +59,4 @@ describe("検索ボタン", () => {
       expect(screen.getByRole("button")).toHaveAttribute("disabled");
     });
   });
-
 });

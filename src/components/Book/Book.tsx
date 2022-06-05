@@ -58,37 +58,23 @@ const Book: React.FC = () => {
       { book?.volumeInfo.imageLinks === undefined ? (
         <div className={`${style.bookThumbnail} ${style.noThumbnail}`}>画像がありません</div>
       ): (
-        <img 
-          src={bookInfo.image} 
-          alt='book thumbnail' 
-          className={style.bookThumbnail}
-        />
+        <img src={bookInfo.image} alt='book thumbnail' className={style.bookThumbnail} />
       )}
       <div className={style.bookInfo}>
         <h2 className={style.title}>{bookInfo.title}</h2>
         <h3 className={style.subTitle}>{bookInfo.subTitle}</h3>
         <div className={style.authors}>
           {bookInfo.authors?.map((author) => {
-            return (
-              <Link key={author} to={`/`}>
-                {author}
-              </Link>
-            )
+            return ( <Link key={author} to={`#`}>{author}</Link> )
           })}
         </div>
-        <div className={style.rate}>
-          <Star averageRating={bookInfo.averageRating} />
-        </div>
+        <div className={style.rate}><Star averageRating={bookInfo.averageRating} /></div>
         <p className={style.publisher}>{bookInfo.publisher}</p>
         <hr />
-        <p className={style.description}>
-          {bookInfo.description}
-        </p>
+        <p className={style.description}>{bookInfo.description}</p>
         <ul className={style.publishedDate}>
           {bookInfo.publishedDate?.map((date) => {
-            return (
-                <li key={date}>{Number(date)}</li>
-            )
+            return ( <li key={date}>{Number(date)}</li> )
           })}
         </ul>
         <p className={style.pageCount}>{bookInfo.pageCount}ページ</p>

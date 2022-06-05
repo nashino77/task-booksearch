@@ -8,36 +8,19 @@ import { BOOK } from '../interface/interface';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useParams: () => ({
-    isbn: ':isbn',
-  }),
+  useParams: () => ({ isbn: ':isbn' }),
   useRouteMatch: () => ({ url: '/:isbn/book' }),
 }));
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
-
-
 describe("レンダリング", () => {
   const setState = jest.fn();
-  beforeEach(() => {
-    (useStateMock as jest.Mock).mockImplementation(init => [init, setState]);
-  });
-
+  beforeEach(() => { (useStateMock as jest.Mock).mockImplementation(init => [init, setState]); });
   it("正常に表示", () => {
     const [book, setBook] = useStateMock<BOOK | undefined>(Data);
-    render(
-    <BookContext.Provider
-      value={{
-        book,
-        setBook
-      }}
-    >
-      <Book />
-    </BookContext.Provider>
-    ,
-    {wrapper: MemoryRouter});
+    render( <BookContext.Provider value={{ book, setBook }} ><Book /></BookContext.Provider>, {wrapper: MemoryRouter});
     expect(screen.getByAltText("book thumbnail")).toBeTruthy();
     expect(screen.getAllByRole("heading")[0]).toHaveTextContent("リーダブルコード");
     expect(screen.getAllByRole("heading")[1]).toHaveTextContent("より良いコードを書くためのシンプルで実践的なテクニック");

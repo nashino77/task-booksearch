@@ -19,12 +19,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <React.StrictMode>
-        <BookContext.Provider
-          value={{
-            book,
-            setBook,
-          }}
-        >
+        <BookContext.Provider value={{ book, setBook }}>
           <Header />
           <Switch>
             <Route exact path='/:isbn/book' component={Book} />

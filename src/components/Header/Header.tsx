@@ -35,11 +35,7 @@ const Header: React.FC = () => {
 
   return (
     <div className={style.header}>
-      <img
-        src={mainTitle}
-        alt='メインタイトル'
-        className={style.mainTitle}
-      />
+      <img src={mainTitle} alt='メインタイトル' className={style.mainTitle} />
       <form className={style.searchForm}>
         <input
           type="text"
@@ -52,11 +48,7 @@ const Header: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsbn(e.target.value)}
           className={style.searchInput}
         />
-        <button
-          onClick={handleSearchBook}
-          disabled={validateCheck(isbn)}
-          className={style.searchButton}
-        >
+        <button onClick={handleSearchBook} disabled={validateCheck(isbn)} className={style.searchButton} >
           <img src={searchMark} alt='検索フォームボタン' />
         </button>
         <span className={style.errorMessage}>{errorMessage}</span>

@@ -1,15 +1,5 @@
-.starRate {
-  width: 127px;
-  height: 19px;
-  list-style: none;
-  display: flex;
-  padding: 0;
-  .star {
-    width: 20px;
-    height: 19px;
-    margin-right: 7px;
-    &:last-child {
-      margin-right: 0;
-    }
+.starRate { width: 127px; height: 19px; list-style: none; display: flex; padding: 0;
+  .star { width: 20px; height: 19px; margin-right: 7px;
+    &:last-child { margin-right: 0; }
   }
 }
