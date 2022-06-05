@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { BookContext } from "../../App";
 // api
 import { searchBook } from "../../api/book";
+// fucntion
+import { toHalfWidth, validateCheck } from "../../function/validate";
 // css
 import style from './Book.module.scss';
 // components
@@ -34,13 +36,12 @@ const Book: React.FC = () => {
     publishedDate: book?.volumeInfo.publishedDate.split('-'),
     pageCount: book?.volumeInfo.pageCount,
   };
-  const validate = ![0, 10, 13].includes(urlParams.isbn.length) || (/[^0-9０-９]+/).test(urlParams.isbn);
   // ブラウザ更新時の書籍情報維持
   const maintainSearchBook = async () => {
-    if (validate || [0].includes(urlParams.isbn.length)) return;
+    if (validateCheck(urlParams.isbn) || [0].includes(urlParams.isbn.length)) return;
+    const params: string = (/[０-９]+/).test(urlParams.isbn) ? toHalfWidth(urlParams.isbn) : urlParams.isbn ;
     try {
-      const res = await searchBook(Number(urlParams.isbn));
-      console.log(res);
+      const res = await searchBook(Number(params));
       setBook(res.data.items[0]);
     } catch (err: unknown) {
       console.log(err);

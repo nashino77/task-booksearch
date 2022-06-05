@@ -18,18 +18,20 @@ const App: React.FC = () => {
   const [book, setBook] = useState<BOOK | undefined>();
   return (
     <Router>
-      <BookContext.Provider 
-        value={{
-          book,
-          setBook,
-        }}
-      >
-        <Header />
-        <Switch>
-          <Route exact path='/:isbn/book' component={Book} />
-          <Route exact path='/:isbn/notfound' component={NotFound} />
-        </Switch>
-      </BookContext.Provider>
+      <React.StrictMode>
+        <BookContext.Provider
+          value={{
+            book,
+            setBook,
+          }}
+        >
+          <Header />
+          <Switch>
+            <Route exact path='/:isbn/book' component={Book} />
+            <Route exact path='/:isbn/notfound' component={NotFound} />
+          </Switch>
+        </BookContext.Provider>
+      </React.StrictMode>
     </Router>
   );
 }

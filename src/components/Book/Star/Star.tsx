@@ -9,12 +9,11 @@ import style from './Star.module.scss';
 const Star: React.FC<{ averageRating: number | undefined }> = (props) => {
   const { averageRating } = props;
   // 星の表示判別用変数
-  const Rating = averageRating === undefined ? 0 : averageRating;
-  const starCount = averageRating === undefined ? 0 : Math.floor(Rating);
-  const halfCount = Number.isInteger(averageRating);
-  const noStarCount = Math.floor(5 - Rating);
-
-
+  const Rating: number = averageRating === undefined ? 0 : averageRating;
+  const starCount: number = averageRating === undefined ? 0 : Math.floor(Rating);
+  const halfCount: boolean = Number.isInteger(averageRating);
+  const noStarCount: number = Math.floor(5 - Rating);
+  
   return (
     <>
       <ul className={style.starRate}>

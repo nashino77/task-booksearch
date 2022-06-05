@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { BookContext } from '../../App';
 // api
 import { searchBook } from '../../api/book';
+// function
+import { toHalfWidth, validateCheck } from '../../function/validate';
 // css
 import style from './Header.module.scss';
 // image
@@ -13,23 +15,15 @@ const Header: React.FC = () => {
   const { setBook } = useContext(BookContext);
   const history = useHistory();
   const [isbn, setIsbn] = useState<string>("");
-  // isbn数値のバリデーション用変数
-  const validate = ![0, 10, 13].includes(isbn.length) || (/[^0-9０-９]+/).test(isbn);
-  const errorMessage = validate ? "10または13文字の数字を入力してください" : "" ;
-  // 全角半角変換
-  const toHalfWidth = (str: string) => {
-    const halfStr = str.replace(/[０-９]/g, (s) => {
-      return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-    });
-    return halfStr;
-  };
+  const errorMessage: string = validateCheck(isbn) ? "10または13文字の数字を入力してください" : "" ;
   // ISBNコードによる書籍情報取得
   const handleSearchBook = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (validate || [0].includes(isbn.length)) return;
-    const params = (/[０-９]+/).test(isbn) ? toHalfWidth(isbn) : isbn ;
+    if (validateCheck(isbn) || [0].includes(isbn.length)) return;
+    const params: string = (/[０-９]+/).test(isbn) ? toHalfWidth(isbn) : isbn ;
     try {
       const res = await searchBook(Number(params));
+      console.log(res);
       setBook(res.data.items[0]);
       history.push(`/${params}/book`);
     } catch (err: unknown) {
@@ -41,10 +35,10 @@ const Header: React.FC = () => {
 
   return (
     <div className={style.header}>
-      <img 
-        src={mainTitle} 
-        alt='メインタイトル' 
-        className={style.mainTitle} 
+      <img
+        src={mainTitle}
+        alt='メインタイトル'
+        className={style.mainTitle}
       />
       <form className={style.searchForm}>
         <input
@@ -58,9 +52,9 @@ const Header: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsbn(e.target.value)}
           className={style.searchInput}
         />
-        <button 
-          onClick={handleSearchBook} 
-          disabled={validate}
+        <button
+          onClick={handleSearchBook}
+          disabled={validateCheck(isbn)}
           className={style.searchButton}
         >
           <img src={searchMark} alt='検索フォームボタン' />
