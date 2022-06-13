@@ -13,7 +13,7 @@ const Star: React.FC<{ averageRating: number | undefined }> = (props) => {
   const starCount: number = averageRating === undefined ? 0 : Math.floor(Rating);
   const halfCount: boolean = Number.isInteger(averageRating);
   const noStarCount: number = Math.floor(5 - Rating);
-  
+
   return (
     <>
       <ul className={style.starRate}>
@@ -22,7 +22,7 @@ const Star: React.FC<{ averageRating: number | undefined }> = (props) => {
             <img src={starMark} alt='評価用色つき星'  className={style.star}/>
           </li>
         ))}
-        {!halfCount && 
+        {!halfCount &&
           <li className={style.star}>
             <img src={halfStarMark} alt='評価用色半分星'  className={style.star}/>
           </li>
