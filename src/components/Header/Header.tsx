@@ -19,7 +19,8 @@ const Header: React.FC = () => {
   // ISBNコードによる書籍情報取得
   const handleSearchBook = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (validateCheck(isbn) || [0].includes(isbn.length)) return;
+    if (validateCheck(isbn)) return;
+    if ([0].includes(isbn.length)) history.push('/');
     const params: string = (/[０-９]+/).test(isbn) ? toHalfWidth(isbn) : isbn ;
     try {
       const res = await searchBook(Number(params));
